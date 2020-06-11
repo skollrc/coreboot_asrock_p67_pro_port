@@ -1,0 +1,33 @@
+if BOARD_TO_BE_FILLED_BY_O.E.M_TO_BE_FILLED_BY_O.E.M
+
+config BOARD_SPECIFIC_OPTIONS
+	def_bool y
+	select BOARD_ROMSIZE_KB_8192
+	select HAVE_ACPI_RESUME
+	select HAVE_ACPI_TABLES
+	select INTEL_INT15
+	select NORTHBRIDGE_INTEL_SANDYBRIDGE
+	select SERIRQ_CONTINUOUS_MODE
+	select SOUTHBRIDGE_INTEL_BD82X6X
+	select USE_NATIVE_RAMINIT
+
+config MAINBOARD_DIR
+	string
+	default to_be_filled_by_o.e.m/to_be_filled_by_o.e.m
+
+config MAINBOARD_PART_NUMBER
+	string
+	default "To Be Filled By O.E.M."
+
+config DRAM_RESET_GATE_GPIO # FIXME: check this
+	int
+	default 60
+
+config MAX_CPUS
+	int
+	default 8
+
+config USBDEBUG_HCD_INDEX # FIXME: check this
+	int
+	default 2
+endif

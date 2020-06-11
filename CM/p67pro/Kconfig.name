@@ -1,0 +1,2 @@
+config BOARD_ASROCK_P67PRO
+	bool "P67 Pro"
