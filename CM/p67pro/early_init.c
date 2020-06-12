@@ -1,7 +1,5 @@
 /* SPDX-License-Identifier: GPL-2.0-only */
 
-
-
 #include <bootblock_common.h>
 #include <northbridge/intel/sandybridge/sandybridge.h>
 #include <northbridge/intel/sandybridge/raminit_native.h>
@@ -26,11 +24,19 @@ const struct southbridge_usb_port mainboard_usb_ports[] = {
 
 void bootblock_mainboard_early_init(void)
 {
-	pci_write_config16(PCI_DEV(0, 0x1f, 0), 0x82, 0x1401);
-	pci_write_config16(PCI_DEV(0, 0x1f, 0), 0x80, 0x0000);
+	/* Set GPIOs on superio, enable UART */
+	nuvoton_pnp_enter_conf_state(SERIAL_DEV);
+	pnp_set_logical_device(SERIAL_DEV);
+
+	pnp_write_config(SERIAL_DEV, 0x1c, 0x80);
+	pnp_write_config(SERIAL_DEV, 0x27, 0x80);
+	pnp_write_config(SERIAL_DEV, 0x2a, 0x60);
+
+	nuvoton_pnp_exit_conf_state(SERIAL_DEV);
+
+	nuvoton_enable_serial(SERIAL_DEV, CONFIG_TTYS0_BASE);
 }
 
-/* FIXME: Put proper SPD map here. */
 void mainboard_get_spd(spd_raw_data *spd, bool id_only)
 {
 	read_spd(&spd[0], 0x50, id_only);
