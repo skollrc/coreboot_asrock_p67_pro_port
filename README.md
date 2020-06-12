@@ -1,0 +1,2 @@
+# coreboot_asrock_p67_pro_port
+coreboot_asrock_p67_pro_port
